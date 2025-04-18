@@ -10,7 +10,11 @@ import java.io.IOException;
 public class Starter extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        stage.setScene(new Scene(new FXMLLoader(Starter.class.getResource("")).load()));
+        // Read the fxml file and set the scene
+        stage.setScene(new Scene(new FXMLLoader(Starter.class.getResource("view/file_path_form.fxml")).load()));
+        stage.setTitle("Transaction file path picker");
+
+        // Show the stage
         stage.show();
     }
 
