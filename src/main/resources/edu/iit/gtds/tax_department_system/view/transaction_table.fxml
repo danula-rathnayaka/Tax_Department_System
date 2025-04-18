@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.iit.gtds.tax_department_system.controller.TransactionTableController">
+   <children>
+      <TableView fx:id="tblTransactions" layoutX="38.0" layoutY="58.0" prefHeight="342.0" prefWidth="936.0">
+        <columns>
+          <TableColumn fx:id="colBillId" prefWidth="70.40002632141113" text="Bill ID" />
+          <TableColumn fx:id="colItemCode" prefWidth="120.79998016357422" text="Item Code" />
+            <TableColumn fx:id="colInternalPrice" prefWidth="115.199951171875" text="Internal Price" />
+            <TableColumn fx:id="colDiscount" prefWidth="98.4000244140625" text="Discount" />
+            <TableColumn fx:id="colSalesPrice" prefWidth="131.99996948242188" text="Sales Price" />
+            <TableColumn fx:id="colQuantity" prefWidth="89.60003662109375" text="Quantity" />
+            <TableColumn fx:id="colLineTotal" prefWidth="111.2000732421875" text="Line Total" />
+            <TableColumn fx:id="colChecksum" prefWidth="100.0" text="Checksum" />
+            <TableColumn fx:id="colEdit" prefWidth="94.39996337890625" text="Action" />
+        </columns>
+      </TableView>
+      <HBox layoutX="29.0" layoutY="447.0" prefHeight="93.0" prefWidth="276.0" spacing="5.0">
+         <children>
+            <VBox prefHeight="102.0" prefWidth="143.0" spacing="10.0">
+               <children>
+                  <Label text="Valid Records" textFill="#0fbf2c">
+                     <font>
+                        <Font name="Poppins Regular" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="10.0" text="Invalid Records" textFill="RED">
+                     <font>
+                        <Font name="Poppins Regular" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="28.0" text="Total Records">
+                     <font>
+                        <Font name="Poppins Regular" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="10.0" spacing="10.0">
+               <children>
+                  <Label text=":" textFill="#0fbf2c">
+                     <font>
+                        <Font name="Poppins Regular" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="10.0" text=":" textFill="RED">
+                     <font>
+                        <Font name="Poppins Regular" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="10.0" layoutY="28.0" text=":">
+                     <font>
+                        <Font name="Poppins Regular" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox layoutX="153.0" layoutY="10.0" prefHeight="100.0" prefWidth="43.0" spacing="10.0">
+               <children>
+                  <Label fx:id="lblValidRecords" text="00" textFill="#0fbf2c">
+                     <font>
+                        <Font name="Poppins Regular" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblInvalidRecords" layoutX="10.0" layoutY="10.0" text="00" textFill="RED">
+                     <font>
+                        <Font name="Poppins Regular" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblTotalRecords" layoutX="10.0" layoutY="28.0" text="00">
+                     <font>
+                        <Font name="Poppins Regular" size="16.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

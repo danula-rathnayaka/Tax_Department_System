@@ -1,21 +1,21 @@
 package edu.iit.gtds.tax_department_system.service;
 
 import edu.iit.gtds.tax_department_system.model.Transaction;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class FileService {
 
     // Method to read the file and return data
-    public List<Transaction> readFile(File file) {
+    public ObservableList<Transaction> readFile(File file) {
         try {
             // Read the given file
             Scanner scanner = new Scanner(file);
-            ArrayList<Transaction> transactions = new ArrayList<>();
+            ObservableList<Transaction> transactions = FXCollections.observableArrayList();
 
             // Loop until a next line is found
             while (scanner.hasNextLine()) {
@@ -42,8 +42,8 @@ public class FileService {
             return transactions;
         } catch (FileNotFoundException e) {
 
-            // If error return an empty list
-            return new ArrayList<>();
+            // If error return a empty list
+            return FXCollections.observableArrayList();
         }
     }
 
