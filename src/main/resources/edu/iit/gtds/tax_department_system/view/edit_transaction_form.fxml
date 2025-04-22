@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.iit.gtds.tax_department_system.controller.EditTransactionFormController">
+   <children>
+      <Label layoutX="204.0" layoutY="30.0" text="Edit Transaction">
+         <font>
+            <Font name="Poppins Regular" size="24.0" />
+         </font>
+      </Label>
+      <HBox layoutX="39.0" layoutY="112.0" prefHeight="176.0" prefWidth="522.0" spacing="40.0">
+         <children>
+            <VBox prefHeight="184.0" prefWidth="244.0" spacing="25.0">
+               <children>
+                  <HBox prefHeight="20.0" prefWidth="244.0" spacing="20.0">
+                     <children>
+                        <Label prefHeight="23.0" prefWidth="112.0" text="Bill Number">
+                           <font>
+                              <Font name="Poppins Regular" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="10.0" text=":">
+                           <font>
+                              <Font name="Poppins Regular" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="lblBillNo" layoutX="121.0" layoutY="10.0" text="0000">
+                           <font>
+                              <Font name="Poppins Regular" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="20.0" prefWidth="244.0" spacing="20.0">
+                     <children>
+                        <Label prefWidth="130.0" text="Item Code">
+                           <font>
+                              <Font name="Poppins Regular" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="10.0" text=":">
+                           <font>
+                              <Font name="Poppins Regular" size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtItemCode" prefHeight="26.0" prefWidth="103.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="36.0" prefHeight="20.0" prefWidth="244.0" spacing="20.0">
+                     <children>
+                        <Label prefWidth="130.0" text="Internal Price">
+                           <font>
+                              <Font name="Poppins Regular" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="10.0" text=":">
+                           <font>
+                              <Font name="Poppins Regular" size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtInternalPrice" prefHeight="26.0" prefWidth="103.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="61.0" prefHeight="20.0" prefWidth="244.0" spacing="20.0">
+                     <children>
+                        <Label prefWidth="130.0" text="Discount">
+                           <font>
+                              <Font name="Poppins Regular" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="10.0" text=":">
+                           <font>
+                              <Font name="Poppins Regular" size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtDiscount" prefHeight="26.0" prefWidth="103.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox layoutX="10.0" layoutY="10.0" prefHeight="184.0" prefWidth="244.0" spacing="25.0">
+               <children>
+                  <HBox prefHeight="20.0" prefWidth="244.0" spacing="20.0">
+                     <children>
+                        <Label prefWidth="130.0" text="Sales Price">
+                           <font>
+                              <Font name="Poppins Regular" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="10.0" text=":">
+                           <font>
+                              <Font name="Poppins Regular" size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtSalesPrice" prefHeight="26.0" prefWidth="103.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="10.0" prefHeight="20.0" prefWidth="244.0" spacing="20.0">
+                     <children>
+                        <Label prefWidth="130.0" text="Quantity">
+                           <font>
+                              <Font name="Poppins Regular" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="10.0" text=":">
+                           <font>
+                              <Font name="Poppins Regular" size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtQuantity" prefHeight="26.0" prefWidth="103.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="36.0" prefHeight="20.0" prefWidth="244.0" spacing="20.0">
+                     <children>
+                        <Label prefWidth="130.0" text="Line Total">
+                           <font>
+                              <Font name="Poppins Regular" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="10.0" text=":">
+                           <font>
+                              <Font name="Poppins Regular" size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtLineTotal" prefHeight="26.0" prefWidth="103.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="61.0" prefHeight="20.0" prefWidth="244.0" spacing="20.0">
+                     <children>
+                        <Label prefWidth="130.0" text="Checksum">
+                           <font>
+                              <Font name="Poppins Regular" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="10.0" layoutY="10.0" text=":">
+                           <font>
+                              <Font name="Poppins Regular" size="16.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtChecksum" prefHeight="26.0" prefWidth="103.0" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox layoutX="175.0" layoutY="333.0" prefHeight="26.0" prefWidth="250.0" spacing="50.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#btnSaveOnAction" prefWidth="100.0" text="Save" />
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnCancelOnAction" prefWidth="100.0" text="Cancel" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

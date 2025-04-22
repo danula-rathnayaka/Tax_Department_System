@@ -4,11 +4,12 @@ import edu.iit.gtds.tax_department_system.model.Transaction;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class TransactionTableService {
 
-    public ArrayList<String[]> validateTransactions(ObservableList<Transaction> transactions) {
+    public List<String[]> validateTransactions(ObservableList<Transaction> transactions) {
         ArrayList<String[]> errorTransactionList = new ArrayList<>();
 
         for (Transaction transaction : transactions) {

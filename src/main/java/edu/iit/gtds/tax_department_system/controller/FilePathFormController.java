@@ -1,13 +1,14 @@
 package edu.iit.gtds.tax_department_system.controller;
 
 import edu.iit.gtds.tax_department_system.model.Transaction;
+import edu.iit.gtds.tax_department_system.model.TransactionList;
 import edu.iit.gtds.tax_department_system.service.FileService;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -45,7 +46,7 @@ public class FilePathFormController implements Initializable {
             // If no data show invalid valid alert
             new Alert(Alert.AlertType.ERROR, "Invalid File").show();
         } else {
-            loadTranslationTable(data);
+            loadTranslationTable(data, file.getPath(), event);
         }
     }
 
@@ -60,7 +61,7 @@ public class FilePathFormController implements Initializable {
             // If no data show invalid valid alert
             new Alert(Alert.AlertType.ERROR, "Invalid File").show();
         } else {
-            loadTranslationTable(data);
+            loadTranslationTable(data, txtPathForFile.getText(), event);
         }
     }
 
@@ -72,19 +73,20 @@ public class FilePathFormController implements Initializable {
         fileChooser.setInitialDirectory(new File("../data"));
     }
 
-    private void loadTranslationTable(ObservableList<Transaction> transactions) {
+    private void loadTranslationTable(ObservableList<Transaction> transactions, String path, ActionEvent event) {
+        TransactionList.getInstance().setTransactions(transactions);
+        TransactionList.getInstance().setPath(path);
+
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/iit/gtds/tax_department_system/view/transaction_table.fxml"));
-            Parent root = null;
-            root = loader.load();
 
-            TransactionTableController controller = loader.getController();
-
-            controller.setTransactions(transactions);
-
+            // Open the transaction table validator form
             Stage stage = new Stage();
-            stage.setScene(new Scene(root));
+            stage.setScene(new Scene(new FXMLLoader(getClass().getResource("/edu/iit/gtds/tax_department_system/view/transaction_table.fxml")).load()));
             stage.show();
+
+            // Close the current stage
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            currentStage.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

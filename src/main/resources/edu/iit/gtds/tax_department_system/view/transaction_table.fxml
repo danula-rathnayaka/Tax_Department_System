@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.iit.gtds.tax_department_system.controller.TransactionTableController">
+<AnchorPane prefHeight="600.0" prefWidth="1041.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.iit.gtds.tax_department_system.controller.TransactionTableController">
    <children>
-      <TableView fx:id="tblTransactions" layoutX="38.0" layoutY="58.0" prefHeight="342.0" prefWidth="936.0">
+      <Pane prefHeight="601.0" prefWidth="1042.0">
+         <children>
+            <Button layoutX="827.0" layoutY="498.0" mnemonicParsing="false" onAction="#btnCalculateProfitOnAction" text="Calculate Profit">
+               <font>
+                  <Font name="Poppins Regular" size="16.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <TableView fx:id="tblTransactions" layoutX="43.0" layoutY="61.0" prefHeight="342.0" prefWidth="956.0">
         <columns>
           <TableColumn fx:id="colBillId" prefWidth="70.40002632141113" text="Bill ID" />
           <TableColumn fx:id="colItemCode" prefWidth="120.79998016357422" text="Item Code" />
@@ -20,13 +31,13 @@
             <TableColumn fx:id="colSalesPrice" prefWidth="131.99996948242188" text="Sales Price" />
             <TableColumn fx:id="colQuantity" prefWidth="89.60003662109375" text="Quantity" />
             <TableColumn fx:id="colLineTotal" prefWidth="111.2000732421875" text="Line Total" />
-            <TableColumn fx:id="colChecksum" prefWidth="100.0" text="Checksum" />
-            <TableColumn fx:id="colEdit" prefWidth="94.39996337890625" text="Action" />
+            <TableColumn fx:id="colChecksum" prefWidth="104.800048828125" text="Checksum" />
+            <TableColumn fx:id="colEdit" prefWidth="108.800048828125" text="Action" />
         </columns>
       </TableView>
-      <HBox layoutX="29.0" layoutY="447.0" prefHeight="93.0" prefWidth="276.0" spacing="5.0">
+      <HBox layoutX="46.0" layoutY="460.0" prefHeight="131.0" prefWidth="226.0" spacing="5.0">
          <children>
-            <VBox prefHeight="102.0" prefWidth="143.0" spacing="10.0">
+            <VBox prefHeight="102.0" prefWidth="143.0" spacing="15.0">
                <children>
                   <Label text="Valid Records" textFill="#0fbf2c">
                      <font>
@@ -45,7 +56,7 @@
                   </Label>
                </children>
             </VBox>
-            <VBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="10.0" spacing="10.0">
+            <VBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="10.0" spacing="15.0">
                <children>
                   <Label text=":" textFill="#0fbf2c">
                      <font>
@@ -64,7 +75,7 @@
                   </Label>
                </children>
             </VBox>
-            <VBox layoutX="153.0" layoutY="10.0" prefHeight="100.0" prefWidth="43.0" spacing="10.0">
+            <VBox layoutX="153.0" layoutY="10.0" prefHeight="100.0" prefWidth="43.0" spacing="15.0">
                <children>
                   <Label fx:id="lblValidRecords" text="00" textFill="#0fbf2c">
                      <font>
@@ -85,5 +96,15 @@
             </VBox>
          </children>
       </HBox>
+      <TextArea fx:id="txtErrors" layoutX="299.0" layoutY="472.0" prefHeight="98.0" prefWidth="482.0">
+         <font>
+            <Font name="Poppins Regular" size="16.0" />
+         </font>
+      </TextArea>
+      <Label layoutX="300.0" layoutY="435.0" text="Validation Errors">
+         <font>
+            <Font name="Poppins Regular" size="16.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
