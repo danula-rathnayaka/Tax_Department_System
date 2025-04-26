@@ -22,7 +22,9 @@ import java.util.ResourceBundle;
 
 public class TransactionTableController implements Initializable {
 
+    // Transaction service instance
     private final TransactionTableService service = new TransactionTableService();
+    // List of transactions
     private final ObservableList<Transaction> transactions = TransactionList.getInstance().getTransactions();
     @FXML
     private TableColumn<Transaction, Integer> colLineNo;
@@ -56,10 +58,13 @@ public class TransactionTableController implements Initializable {
     private TableView<Transaction> tblTransactions;
     @FXML
     private TextArea txtErrors;
+    // Selected transaction
     private Transaction selectedTransaction;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        // Bind table columns to Transaction fields
         colLineNo.setCellValueFactory(new PropertyValueFactory<>("lineNo"));
         colBillId.setCellValueFactory(new PropertyValueFactory<>("billId"));
         colItemCode.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
@@ -71,8 +76,10 @@ public class TransactionTableController implements Initializable {
         colChecksum.setCellValueFactory(new PropertyValueFactory<>("checksum"));
         colValidity.setCellValueFactory(new PropertyValueFactory<>("isValid"));
 
+        // Set the data to the table view
         tblTransactions.setItems(transactions);
 
+        // Listen for row selection in the table
         tblTransactions.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 lblLineSelected.setText(newSelection.getLineNo().toString());
@@ -83,11 +90,13 @@ public class TransactionTableController implements Initializable {
             }
         });
 
+        // Show the validation summary on UI
         updateValidationStatus();
     }
 
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
+        // Allow deletion only if a transaction is selected and is marked "Invalid"
         if (selectedTransaction == null || selectedTransaction.getIsValid().equals("Valid")) {
             new Alert(Alert.AlertType.ERROR, "Please select an invalid row to delete.").show();
             return;
@@ -100,6 +109,7 @@ public class TransactionTableController implements Initializable {
         confirmation.setTitle("Confirm Deletion");
         confirmation.setHeaderText(null);
 
+        // If confirmed, remove transaction and refresh UI
         confirmation.showAndWait().ifPresent(response -> {
             if (response == ButtonType.YES) {
                 transactions.remove(selectedTransaction);
@@ -115,19 +125,24 @@ public class TransactionTableController implements Initializable {
 
     @FXML
     void btnEditOnAction(ActionEvent event) {
+        // Only allow editing if selected transaction is invalid
         if (selectedTransaction == null || selectedTransaction.getIsValid().equals("Valid")) {
             new Alert(Alert.AlertType.ERROR, "Please select a invalid row to edit.").show();
             return;
         }
         try {
+            // Load the edit form FXML
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/iit/gtds/tax_department_system/view/edit_transaction_form.fxml"));
             Parent root = loader.load();
 
+            // Pass selected transaction to the controller
             EditTransactionFormController controller = loader.getController();
             controller.setTransactionData(selectedTransaction);
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
+
+            // Refresh table when the edit window is closed
             stage.setOnHidden(e -> {
                 tblTransactions.refresh();
                 updateValidationStatus();
@@ -135,18 +150,19 @@ public class TransactionTableController implements Initializable {
             stage.show();
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, "Invalid File").show();
         }
     }
 
     @FXML
     void btnCalculateProfitOnAction(ActionEvent event) {
+        // Profit should only be calculated if there are no invalid transactions
         if (Integer.parseInt(lblInvalidRecords.getText()) != 0) {
-            new Alert(Alert.AlertType.ERROR, "Please fix all errors before calculating the profit..").show();
+            new Alert(Alert.AlertType.ERROR, "Please fix all errors before calculating the profit.").show();
             return;
         }
         try {
-            // Open the profit table stage
+            // Load and open the profit table window
             Stage stage = new Stage();
             stage.setScene(new Scene(new FXMLLoader(getClass().getResource("/edu/iit/gtds/tax_department_system/view/profit_table.fxml")).load()));
             stage.show();
@@ -156,17 +172,20 @@ public class TransactionTableController implements Initializable {
             currentStage.close();
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, "Invalid File").show();
         }
     }
 
+    // Recalculate and update validation status and error messages
     private void updateValidationStatus() {
         List<String[]> errorList = service.validateTransactions(transactions);
 
+        // Update record summary counts
         lblValidRecords.setText((transactions.size() - errorList.size()) + "");
         lblInvalidRecords.setText(errorList.size() + "");
         lblTotalRecords.setText(transactions.size() + "");
 
+        // Show formatted error messages in the text area
         if (errorList.isEmpty()) {
             txtErrors.setText("No errors were found");
             return;
@@ -182,6 +201,7 @@ public class TransactionTableController implements Initializable {
 
     @FXML
     void btnUpdateFileOnAction(ActionEvent event) {
+        // Persist the current list of transactions to file
         service.updateFile();
         new Alert(Alert.AlertType.INFORMATION, "File updated successfully.").show();
     }

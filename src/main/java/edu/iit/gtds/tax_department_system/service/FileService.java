@@ -5,7 +5,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class FileService {
@@ -27,26 +26,14 @@ public class FileService {
 
                 // Add a new transaction with the extracted data
 
-                transactions.add(
-                        new Transaction(
-                                lineNumber++,
-                                data[0],
-                                data[1],
-                                Double.parseDouble(data[2]),
-                                Double.parseDouble(data[3]),
-                                Double.parseDouble(data[4]),
-                                Integer.parseInt(data[5]),
-                                Double.parseDouble(data[6]),
-                                Integer.parseInt(data[7])
-                        )
-                );
+                transactions.add(new Transaction(lineNumber++, data[0], data[1], Double.parseDouble(data[2]), Double.parseDouble(data[3]), Double.parseDouble(data[4]), Integer.parseInt(data[5]), Double.parseDouble(data[6]), Integer.parseInt(data[7])));
             }
 
             // Return a list of transactions extracted
             return transactions;
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
 
-            // If error return a empty list
+            // If error return an empty list
             return FXCollections.observableArrayList();
         }
     }

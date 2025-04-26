@@ -38,16 +38,6 @@ public class FilePathFormController implements Initializable {
 
         // Set the file path when the file is picked
         txtPathForFile.setText(file.getPath());
-
-        // Read and extract data using the service method
-        ObservableList<Transaction> data = service.readFile(file);
-
-        if (data == null) {
-            // If no data show invalid valid alert
-            new Alert(Alert.AlertType.ERROR, "Invalid File").show();
-        } else {
-            loadTranslationTable(data, file.getPath(), event);
-        }
     }
 
     @FXML
@@ -57,9 +47,9 @@ public class FilePathFormController implements Initializable {
         ObservableList<Transaction> data = service.readFile(new File(txtPathForFile.getText()));
 
 
-        if (data == null) {
+        if (data.isEmpty()) {
             // If no data show invalid valid alert
-            new Alert(Alert.AlertType.ERROR, "Invalid File").show();
+            new Alert(Alert.AlertType.ERROR, "Invalid file. Please select a valid csv file.").show();
         } else {
             loadTranslationTable(data, txtPathForFile.getText(), event);
         }
@@ -70,7 +60,7 @@ public class FilePathFormController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         // Initialize the default path for file picker
-        fileChooser.setInitialDirectory(new File("../data"));
+        fileChooser.setInitialDirectory(new File("../"));
     }
 
     private void loadTranslationTable(ObservableList<Transaction> transactions, String path, ActionEvent event) {
@@ -88,7 +78,7 @@ public class FilePathFormController implements Initializable {
             Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             currentStage.close();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            new Alert(Alert.AlertType.ERROR, "Invalid File.").show();
         }
     }
 }
