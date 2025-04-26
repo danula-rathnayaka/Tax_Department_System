@@ -28,7 +28,7 @@
                   <TableColumn fx:id="colQuantity" prefWidth="104.0" text="Quantity" />
                   <TableColumn fx:id="colLineTotal" prefWidth="118.39990234375" text="Line Total" />
                   <TableColumn fx:id="colChecksum" prefWidth="99.19989013671875" text="Checksum" />
-                  <TableColumn fx:id="colValidity" prefWidth="111.1998291015625" text="Validity" />
+                  <TableColumn fx:id="colValidity" prefWidth="105.0" text="Validity" />
               </columns>
                <BorderPane.margin>
                   <Insets bottom="10.0" left="50.0" right="50.0" top="10.0" />
@@ -119,33 +119,33 @@
                         <Font name="Poppins Regular" size="16.0" />
                      </font>
                   </Label>
-                  <Button layoutX="687.0" layoutY="530.0" mnemonicParsing="false" onAction="#btnCalculateProfitOnAction" text="Calculate Profit">
+                  <Button layoutX="687.0" layoutY="530.0" mnemonicParsing="false" onAction="#btnCalculateProfitOnAction" prefWidth="150.0" text="Calculate Profit">
                      <font>
                         <Font name="Poppins Regular" size="16.0" />
                      </font>
                   </Button>
-                  <HBox layoutX="702.0" layoutY="459.0" prefHeight="20.0" prefWidth="127.0" spacing="10.0">
+                  <HBox layoutX="696.0" layoutY="459.0" prefHeight="20.0" prefWidth="132.0" spacing="5.0">
                      <children>
-                        <Label text="Selected Line :">
+                        <Label prefHeight="20.0" prefWidth="92.0" text="Selected Line :">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <Label prefHeight="20.0" prefWidth="24.0" text="0">
+                        <Label fx:id="lblLineSelected" prefHeight="20.0" prefWidth="34.0" text="None">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
-                  <HBox layoutX="700.0" layoutY="488.0" spacing="10.0">
+                  <HBox layoutX="687.0" layoutY="488.0" prefWidth="150.0" spacing="10.0">
                      <children>
-                        <Button mnemonicParsing="false" style="-fx-background-color: green;" text="Edit" textFill="WHITE">
+                        <Button mnemonicParsing="false" onAction="#btnEditOnAction" prefWidth="75.0" style="-fx-background-color: green;" text="Edit" textFill="WHITE">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Button>
-                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" style="-fx-background-color: red;" text="Delete" textFill="WHITE">
+                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefWidth="75.0" style="-fx-background-color: red;" text="Delete" textFill="WHITE">
                            <font>
                               <Font size="14.0" />
                            </font>

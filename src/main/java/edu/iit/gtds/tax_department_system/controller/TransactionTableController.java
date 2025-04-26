@@ -13,7 +13,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -46,6 +45,8 @@ public class TransactionTableController implements Initializable {
     @FXML
     private TableColumn<Transaction, String> colValidity;
     @FXML
+    private Label lblLineSelected;
+    @FXML
     private Label lblInvalidRecords;
     @FXML
     private Label lblTotalRecords;
@@ -55,6 +56,7 @@ public class TransactionTableController implements Initializable {
     private TableView<Transaction> tblTransactions;
     @FXML
     private TextArea txtErrors;
+    private Transaction selectedTransaction;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -71,156 +73,78 @@ public class TransactionTableController implements Initializable {
 
         tblTransactions.setItems(transactions);
 
-        List<String[]> errorList = service.validateTransactions(transactions);
-
-        lblValidRecords.setText((transactions.size() - errorList.size()) + "");
-        lblInvalidRecords.setText(errorList.size() + "");
-        lblTotalRecords.setText(transactions.size() + "");
-
-        if (errorList.isEmpty()) {
-            txtErrors.setText("No errors were found");
-            return;
-        }
-
-        StringBuilder errorText = new StringBuilder();
-        for (String[] error : errorList) {
-            String billId = error[0];
-            String itemCode = error[1];
-            String field = error[2];
-
-            String message = switch (field) {
-                case "itemCode" -> "Invalid Item Code";
-                case "internalPrice" -> "Negative Internal Price";
-                case "discount" -> "Negative Discount";
-                case "salePrice" -> "Negative Sale Price";
-                case "quantity" -> "Negative Quantity";
-                case "lineTotal" -> "Negative Line Total";
-                case "checksum" -> "Invalid Checksum";
-                default -> "Unknown Error";
-            };
-
-            errorText.append("• Bill ID: ").append(billId)
-                    .append(", Item Code: ").append(itemCode)
-                    .append(" → ").append(message).append("\n");
-        }
-        txtErrors.setText(errorText.toString());
-
-        tblTransactions.setRowFactory(tv -> new TableRow<>() {
-            @Override
-            protected void updateItem(Transaction item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setStyle("");
-                    return;
-                }
-
-                boolean hasError = errorList.stream().anyMatch(e ->
-                        e[0].equals(item.getBillId()) && e[1].equals(item.getItemCode())
-                );
-                setStyle(hasError ? "-fx-background-color: #ffcccc;" : "");
+        tblTransactions.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                lblLineSelected.setText(newSelection.getLineNo().toString());
+                selectedTransaction = newSelection;
+            } else {
+                lblLineSelected.setText("Null");
+                selectedTransaction = null;
             }
         });
 
-//        // Apply cell-level highlighting using a reusable method
-//        applyCellStyle(colItemCode, "itemCode", errorList);
-//        applyCellStyle(colInternalPrice, "internalPrice", errorList);
-//        applyCellStyle(colDiscount, "discount", errorList);
-//        applyCellStyle(colSalesPrice, "salePrice", errorList);
-//        applyCellStyle(colQuantity, "quantity", errorList);
-//        applyCellStyle(colLineTotal, "lineTotal", errorList);
-//        applyCellStyle(colChecksum, "checksum", errorList);
-//
-//        colAction.setCellFactory(col -> new TableCell<>() {
-//            private final Button editButton = new Button("Edit");
-//            private final Button deleteButton = new Button("Delete");
-//            private final HBox buttonBox = new HBox(5); // spacing of 5
-//
-//            {
-//                editButton.setOnAction(event -> {
-//                    Transaction transaction = getTableView().getItems().get(getIndex());
-//
-//                    try {
-//                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/iit/gtds/tax_department_system/view/edit_transaction_form.fxml"));
-//                        Parent root = loader.load();
-//
-//                        EditTransactionFormController controller = loader.getController();
-//                        controller.setTransactionData(transaction);
-//
-//                        Stage stage = new Stage();
-//                        stage.setScene(new Scene(root));
-//                        stage.show();
-//                    } catch (IOException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//                });
-//
-//                deleteButton.setOnAction(event -> {
-//                    int index = getIndex();
-//                    Transaction transaction = getTableView().getItems().get(index);
-//                    // Confirm before delete (optional)
-//                    Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this transaction?", ButtonType.YES, ButtonType.NO);
-//                    confirm.showAndWait().ifPresent(response -> {
-//                        if (response == ButtonType.YES) {
-//                            getTableView().getItems().remove(index);
-//                            // Delete Logic
-//                        }
-//                    });
-//                });
-//
-//                buttonBox.getChildren().addAll(editButton, deleteButton);
-//            }
-//
-//            @Override
-//            protected void updateItem(Void item, boolean empty) {
-//                super.updateItem(item, empty);
-//
-//                if (empty || getIndex() >= getTableView().getItems().size()) {
-//                    setGraphic(null);
-//                    return;
-//                }
-//
-//                Transaction row = getTableView().getItems().get(getIndex());
-//
-//                boolean hasError = errorList.stream().anyMatch(e ->
-//                        e[0].equals(row.getBillId()) && e[1].equals(row.getItemCode())
-//                );
-//
-//                // Only show edit if there's an error, but always allow delete
-//                editButton.setVisible(hasError);
-//                deleteButton.setVisible(hasError);
-//                setGraphic(buttonBox);
-//            }
-//        });
+        updateValidationStatus();
+    }
+
+    @FXML
+    void btnDeleteOnAction(ActionEvent event) {
+        if (selectedTransaction == null || selectedTransaction.getIsValid().equals("Valid")) {
+            new Alert(Alert.AlertType.ERROR, "Please select an invalid row to delete.").show();
+            return;
+        }
+
+        // Confirmation alert
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION,
+                "Are you sure you want to delete this transaction?",
+                ButtonType.YES, ButtonType.NO);
+        confirmation.setTitle("Confirm Deletion");
+        confirmation.setHeaderText(null);
+
+        confirmation.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.YES) {
+                transactions.remove(selectedTransaction);
+                selectedTransaction = null;
+                tblTransactions.getSelectionModel().clearSelection();
+                lblLineSelected.setText("Null");
+                tblTransactions.refresh();
+                updateValidationStatus();
+            }
+        });
     }
 
 
-//    private <T> void applyCellStyle(TableColumn<Transaction, T> column, String fieldName, List<String[]> errors) {
-//        column.setCellFactory(col -> new TableCell<>() {
-//            @Override
-//            protected void updateItem(T value, boolean empty) {
-//                super.updateItem(value, empty);
-//                if (empty || value == null) {
-//                    setText(null);
-//                    setStyle("");
-//                    return;
-//                }
-//
-//                setText(value.toString());
-//                Transaction row = getTableView().getItems().get(getIndex());
-//
-//                boolean match = errors.stream().anyMatch(e ->
-//                        e[0].equals(row.getBillId()) &&
-//                                e[1].equals(row.getItemCode()) &&
-//                                e[2].equals(fieldName)
-//                );
-//
-//                setStyle(match ? "-fx-background-color: #8B0000; -fx-text-fill: white;" : "");
-//            }
-//        });
-//    }
+    @FXML
+    void btnEditOnAction(ActionEvent event) {
+        if (selectedTransaction == null || selectedTransaction.getIsValid().equals("Valid")) {
+            new Alert(Alert.AlertType.ERROR, "Please select a invalid row to edit.").show();
+            return;
+        }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/iit/gtds/tax_department_system/view/edit_transaction_form.fxml"));
+            Parent root = loader.load();
+
+            EditTransactionFormController controller = loader.getController();
+            controller.setTransactionData(selectedTransaction);
+
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setOnHidden(e -> {
+                tblTransactions.refresh();
+                updateValidationStatus();
+            });
+            stage.show();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @FXML
     void btnCalculateProfitOnAction(ActionEvent event) {
+        if (Integer.parseInt(lblInvalidRecords.getText()) != 0) {
+            new Alert(Alert.AlertType.ERROR, "Please fix all errors before calculating the profit..").show();
+            return;
+        }
         try {
             // Open the profit table stage
             Stage stage = new Stage();
@@ -234,5 +158,26 @@ public class TransactionTableController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private void updateValidationStatus() {
+        List<String[]> errorList = service.validateTransactions(transactions);
+
+        lblValidRecords.setText((transactions.size() - errorList.size()) + "");
+        lblInvalidRecords.setText(errorList.size() + "");
+        lblTotalRecords.setText(transactions.size() + "");
+
+        if (errorList.isEmpty()) {
+            txtErrors.setText("No errors were found");
+            return;
+        }
+
+        StringBuilder errorText = new StringBuilder();
+        for (String[] error : errorList) {
+            errorText.append("• Line No. ").append(error[0])
+                    .append(" → ").append(error[1]).append("\n");
+        }
+        txtErrors.setText(errorText.toString());
+
     }
 }

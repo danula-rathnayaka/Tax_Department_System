@@ -1,6 +1,7 @@
 package edu.iit.gtds.tax_department_system.service;
 
 import edu.iit.gtds.tax_department_system.model.Transaction;
+import edu.iit.gtds.tax_department_system.util.ChecksumUtils;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
@@ -14,30 +15,28 @@ public class TransactionTableService {
 
         for (Transaction transaction : transactions) {
             Boolean isValid = true;
-            String billId = transaction.getBillId();
-            String itemCode = transaction.getItemCode();
 
-            if (!isValidItemCode(itemCode)) {
-                errorTransactionList.add(new String[]{billId, itemCode, "itemCode"});
+            if (!isValidItemCode(transaction.getItemCode())) {
+                errorTransactionList.add(new String[]{transaction.getLineNo().toString(), "Invalid Item Code"});
                 isValid = false;
             } else if (transaction.getInternalPrice() < 0) {
-                errorTransactionList.add(new String[]{billId, itemCode, "internalPrice"});
+                errorTransactionList.add(new String[]{transaction.getLineNo().toString(), "Negative Internal Price"});
                 isValid = false;
             } else if (transaction.getDiscount() < 0) {
-                errorTransactionList.add(new String[]{billId, itemCode, "discount"});
+                errorTransactionList.add(new String[]{transaction.getLineNo().toString(), "Negative Discount"});
                 isValid = false;
             } else if (transaction.getSalePrice() < 0) {
-                errorTransactionList.add(new String[]{billId, itemCode, "salePrice"});
+                errorTransactionList.add(new String[]{transaction.getLineNo().toString(), "Negative Sale Price"});
                 isValid = false;
             } else if (transaction.getQuantity() < 0) {
-                errorTransactionList.add(new String[]{billId, itemCode, "quantity"});
+                errorTransactionList.add(new String[]{transaction.getLineNo().toString(), "Negative Quantity"});
                 isValid = false;
-            } else if (!isChecksumValid(transaction)) {
-                errorTransactionList.add(new String[]{billId, itemCode, "checksum"});
+            } else if ((ChecksumUtils.getChecksum(transaction) != transaction.getChecksum())) {
+                errorTransactionList.add(new String[]{transaction.getLineNo().toString(), "Invalid Checksum"});
                 isValid = false;
             }
 
-            transaction.setIsValid(isValid? "Valid" : "Invalid");
+            transaction.setIsValid(isValid ? "Valid" : "Invalid");
         }
 
         return errorTransactionList;
@@ -47,23 +46,5 @@ public class TransactionTableService {
         return itemCode != null && Pattern.matches("^\\w+$", itemCode);
     }
 
-    private boolean isChecksumValid(Transaction t) {
-        String data = t.getBillId()
-                + t.getItemCode()
-                + t.getInternalPrice()
-                + t.getDiscount()
-                + t.getSalePrice()
-                + t.getQuantity()
-                + t.getLineTotal();
 
-        return generateChecksum(data) == t.getChecksum();
-    }
-
-    private int generateChecksum(String data) {
-        int sum = 0;
-        for (int i = 0; i < data.length(); i++) {
-            sum += (i + 1) * data.charAt(i);
-        }
-        return (~sum + 1) & 0xFF;
-    }
 }

@@ -25,7 +25,7 @@ public class Transaction {
         this.lineTotal = lineTotal;
         this.checksum = checksum;
         this.profit = 0.0;
-        this.isValid = "Invalid";
+        this.isValid = "";
     }
 
     // Setters and Getters
