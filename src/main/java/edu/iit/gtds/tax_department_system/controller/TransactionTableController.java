@@ -178,6 +178,11 @@ public class TransactionTableController implements Initializable {
                     .append(" → ").append(error[1]).append("\n");
         }
         txtErrors.setText(errorText.toString());
+    }
 
+    @FXML
+    void btnUpdateFileOnAction(ActionEvent event) {
+        service.updateFile();
+        new Alert(Alert.AlertType.INFORMATION, "File updated successfully.").show();
     }
 }

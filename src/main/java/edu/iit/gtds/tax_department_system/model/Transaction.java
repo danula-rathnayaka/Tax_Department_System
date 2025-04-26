@@ -122,18 +122,13 @@ public class Transaction {
     // To string method to print the transaction details properly
     @Override
     public String toString() {
-        return "Transaction{" +
-                "lineNo=" + lineNo +
-                "billId='" + billId + '\'' +
-                ", itemCode='" + itemCode + '\'' +
-                ", internalPrice=" + internalPrice +
-                ", discount=" + discount +
-                ", salePrice=" + salePrice +
-                ", quantity=" + quantity +
-                ", lineTotal=" + lineTotal +
-                ", checksum=" + checksum +
-                ", profit=" + profit +
-                "isValid=" + isValid +
-                '}';
+        return billId + "," +
+                itemCode + "," +
+                internalPrice + "," +
+                discount + "," +
+                salePrice + "," +
+                quantity + "," +
+                lineTotal + "," +
+                checksum + ",";
     }
 }

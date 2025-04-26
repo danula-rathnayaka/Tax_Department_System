@@ -48,9 +48,9 @@
          <bottom>
             <Group BorderPane.alignment="CENTER">
                <children>
-                  <HBox layoutX="-183.0" layoutY="467.0" prefHeight="98.0" prefWidth="226.0" spacing="5.0">
+                  <HBox layoutX="-183.0" layoutY="448.0" prefHeight="98.0" prefWidth="226.0" spacing="5.0">
                      <children>
-                        <VBox alignment="CENTER_LEFT" prefHeight="91.0" prefWidth="143.0" spacing="15.0">
+                        <VBox alignment="BOTTOM_LEFT" prefHeight="91.0" prefWidth="143.0" spacing="20.0">
                            <children>
                               <Label text="Valid Records" textFill="#0fbf2c">
                                  <font>
@@ -69,7 +69,7 @@
                               </Label>
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="10.0" spacing="15.0">
+                        <VBox alignment="BOTTOM_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="10.0" spacing="20.0">
                            <children>
                               <Label text=":" textFill="#0fbf2c">
                                  <font>
@@ -88,7 +88,7 @@
                               </Label>
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER_LEFT" layoutX="153.0" layoutY="10.0" prefHeight="100.0" prefWidth="43.0" spacing="15.0">
+                        <VBox alignment="BOTTOM_LEFT" layoutX="153.0" layoutY="10.0" prefHeight="100.0" prefWidth="43.0" spacing="20.0">
                            <children>
                               <Label fx:id="lblValidRecords" text="00" textFill="#0fbf2c">
                                  <font>
@@ -109,7 +109,7 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <TextArea fx:id="txtErrors" layoutX="104.0" layoutY="468.0" prefHeight="98.0" prefWidth="482.0">
+                  <TextArea fx:id="txtErrors" layoutX="104.0" layoutY="468.0" prefHeight="98.0" prefWidth="300.0">
                      <font>
                         <Font name="Poppins Regular" size="16.0" />
                      </font>
@@ -119,26 +119,26 @@
                         <Font name="Poppins Regular" size="16.0" />
                      </font>
                   </Label>
-                  <Button layoutX="687.0" layoutY="530.0" mnemonicParsing="false" onAction="#btnCalculateProfitOnAction" prefWidth="150.0" text="Calculate Profit">
+                  <Button layoutX="684.0" layoutY="487.0" mnemonicParsing="false" onAction="#btnCalculateProfitOnAction" prefWidth="150.0" text="Calculate Profit">
                      <font>
                         <Font name="Poppins Regular" size="16.0" />
                      </font>
                   </Button>
-                  <HBox layoutX="696.0" layoutY="459.0" prefHeight="20.0" prefWidth="132.0" spacing="5.0">
+                  <HBox layoutX="476.0" layoutY="459.0" prefHeight="20.0" prefWidth="153.0" spacing="5.0">
                      <children>
-                        <Label prefHeight="20.0" prefWidth="92.0" text="Selected Line :">
+                        <Label prefHeight="20.0" prefWidth="110.0" text="Selected Line :">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Poppins Regular" size="14.0" />
                            </font>
                         </Label>
-                        <Label fx:id="lblLineSelected" prefHeight="20.0" prefWidth="34.0" text="None">
+                        <Label fx:id="lblLineSelected" prefHeight="20.0" prefWidth="39.0" text="None">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="Poppins Regular" size="14.0" />
                            </font>
                         </Label>
                      </children>
                   </HBox>
-                  <HBox layoutX="687.0" layoutY="488.0" prefWidth="150.0" spacing="10.0">
+                  <HBox layoutX="479.0" layoutY="488.0" prefWidth="150.0" spacing="10.0">
                      <children>
                         <Button mnemonicParsing="false" onAction="#btnEditOnAction" prefWidth="75.0" style="-fx-background-color: green;" text="Edit" textFill="WHITE">
                            <font>
@@ -152,6 +152,11 @@
                         </Button>
                      </children>
                   </HBox>
+                  <Button layoutX="478.0" layoutY="526.0" mnemonicParsing="false" onAction="#btnUpdateFileOnAction" prefHeight="30.0" prefWidth="152.0" text="Update File">
+                     <font>
+                        <Font name="Poppins Regular" size="14.0" />
+                     </font>
+                  </Button>
                </children>
                <BorderPane.margin>
                   <Insets bottom="20.0" top="10.0" />

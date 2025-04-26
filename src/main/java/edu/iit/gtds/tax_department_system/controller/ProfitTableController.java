@@ -30,17 +30,19 @@ public class ProfitTableController implements Initializable {
     @FXML
     private TableColumn<Transaction, String> colItemCode;
     @FXML
+    private TableColumn<?, ?> colLineNo;
+    @FXML
     private TableColumn<Transaction, Double> colLineTotal;
     @FXML
     private TableColumn<Transaction, Integer> colQuantity;
     @FXML
     private TableColumn<Transaction, Double> colSalesPrice;
     @FXML
-    private TableColumn<Transaction, Void> colAction;
-    @FXML
     private TableView<Transaction> tblProfit;
     @FXML
     private Label lblFinalProfit;
+    @FXML
+    private Label lblLineSelected;
     @FXML
     private Label lblFinalTax;
     @FXML
@@ -49,9 +51,11 @@ public class ProfitTableController implements Initializable {
     private Label lblTotalProfit;
     @FXML
     private TextField txtTaxRate;
+    private Transaction selectedTransaction;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        colLineNo.setCellValueFactory(new PropertyValueFactory<>("lineNo"));
         colBillId.setCellValueFactory(new PropertyValueFactory<>("billId"));
         colItemCode.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
         colInternalPrice.setCellValueFactory(new PropertyValueFactory<>("internalPrice"));
@@ -64,51 +68,27 @@ public class ProfitTableController implements Initializable {
 
         tblProfit.setItems(transactions);
 
-        colAction.setCellFactory(col -> new TableCell<>() {
-            private final Button deleteButton = new Button("Delete");
+        setValuesToLabels();
 
-            {
-                deleteButton.setOnAction(event -> {
-                    int index = getIndex();
-                    Transaction transaction = getTableView().getItems().get(index);
-                    // Confirm before delete (optional)
-                    Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this transaction?", ButtonType.YES, ButtonType.NO);
-                    confirm.showAndWait().ifPresent(response -> {
-                        if (response == ButtonType.YES) {
-                            getTableView().getItems().remove(index);
-                            // Delete Logic
-                        }
-                    });
-                });
-            }
-
-            @Override
-            protected void updateItem(Void item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (empty || getIndex() >= getTableView().getItems().size()) {
-                    setGraphic(null);
-                    return;
-                }
-
-                Transaction row = getTableView().getItems().get(getIndex());
-
-                deleteButton.setVisible(row.getProfit().equals(0.0));
-                setGraphic(deleteButton);
+        tblProfit.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                lblLineSelected.setText(newSelection.getLineNo().toString());
+                selectedTransaction = newSelection;
+            } else {
+                lblLineSelected.setText("Null");
+                selectedTransaction = null;
             }
         });
 
-        setValuesToLabels();
     }
 
     private void setValuesToLabels() {
         double totalProfit = 0;
         double totalLoss = 0;
 
-        for (Transaction t : transactions) {
-            double profit = (t.getInternalPrice() * t.getQuantity()) -
-                    (t.getSalePrice() * t.getQuantity() - t.getDiscount());
-            t.setProfit(profit);
+        for (Transaction transaction : transactions) {
+            double profit = (transaction.getSalePrice() * transaction.getQuantity() - transaction.getDiscount()) - (transaction.getInternalPrice() * transaction.getQuantity());
+            transaction.setProfit(profit);
 
             if (profit >= 0) {
                 totalProfit += profit;
@@ -129,10 +109,35 @@ public class ProfitTableController implements Initializable {
         lblFinalTax.setText(String.format("%.2f", service.calculateTaxRate(Double.parseDouble(lblFinalProfit.getText()), Double.parseDouble(txtTaxRate.getText()))));
     }
 
-    private static class InvalidTaxRateException extends Exception {
-        public InvalidTaxRateException(String message) {
-            super(message);
+    @FXML
+    void btnDeleteOnAction(ActionEvent event) {
+        if (selectedTransaction == null || (selectedTransaction.getProfit() != 0.0)) {
+            new Alert(Alert.AlertType.ERROR, "Please select a profit 0 row to delete.").show();
+            return;
         }
+
+        // Confirmation before deleting
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION,
+                "Are you sure you want to delete this transaction?",
+                ButtonType.YES, ButtonType.NO);
+        confirmation.setTitle("Confirm Deletion");
+        confirmation.setHeaderText(null);
+
+        confirmation.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.YES) {
+                transactions.remove(selectedTransaction);
+                tblProfit.getSelectionModel().clearSelection();
+                selectedTransaction = null;
+                lblLineSelected.setText("Null");
+                tblProfit.refresh();
+                setValuesToLabels();
+            }
+        });
     }
 
+    @FXML
+    void btnUpdateFileOnAction(ActionEvent event) {
+        service.updateFile();
+        new Alert(Alert.AlertType.INFORMATION, "File updated successfully.").show();
+    }
 }
