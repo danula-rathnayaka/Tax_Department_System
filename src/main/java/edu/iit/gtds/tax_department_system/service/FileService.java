@@ -17,6 +17,8 @@ public class FileService {
             Scanner scanner = new Scanner(file);
             ObservableList<Transaction> transactions = FXCollections.observableArrayList();
 
+            Integer lineNumber = 0;
+
             // Loop until a next line is found
             while (scanner.hasNextLine()) {
 
@@ -24,8 +26,10 @@ public class FileService {
                 String[] data = scanner.nextLine().split(",");
 
                 // Add a new transaction with the extracted data
+
                 transactions.add(
                         new Transaction(
+                                lineNumber++,
                                 data[0],
                                 data[1],
                                 Double.parseDouble(data[2]),

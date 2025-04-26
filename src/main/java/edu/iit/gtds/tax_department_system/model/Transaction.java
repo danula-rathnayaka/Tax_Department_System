@@ -1,6 +1,7 @@
 package edu.iit.gtds.tax_department_system.model;
 
 public class Transaction {
+    private Integer lineNo;
     private String billId;
     private String itemCode;
     private Double internalPrice;
@@ -9,9 +10,12 @@ public class Transaction {
     private Integer quantity;
     private Double lineTotal;
     private Integer checksum;
+    private Double profit;
+    private String isValid;
 
     // All args constructor
-    public Transaction(String billId, String itemCode, Double internalPrice, Double discount, Double salePrice, Integer quantity, Double lineTotal, Integer checksum) {
+    public Transaction(Integer lineNo, String billId, String itemCode, Double internalPrice, Double discount, Double salePrice, Integer quantity, Double lineTotal, Integer checksum) {
+        this.lineNo = lineNo;
         this.billId = billId;
         this.itemCode = itemCode;
         this.internalPrice = internalPrice;
@@ -20,9 +24,21 @@ public class Transaction {
         this.quantity = quantity;
         this.lineTotal = lineTotal;
         this.checksum = checksum;
+        this.profit = 0.0;
+        this.isValid = "Invalid";
     }
 
     // Setters and Getters
+
+
+    public Integer getLineNo() {
+        return lineNo;
+    }
+
+    public void setLineNo(Integer lineNo) {
+        this.lineNo = lineNo;
+    }
+
     public String getBillId() {
         return billId;
     }
@@ -87,10 +103,27 @@ public class Transaction {
         this.checksum = checksum;
     }
 
+    public Double getProfit() {
+        return profit;
+    }
+
+    public void setProfit(Double profit) {
+        this.profit = profit;
+    }
+
+    public String getIsValid() {
+        return isValid;
+    }
+
+    public void setIsValid(String isValid) {
+        this.isValid = isValid;
+    }
+
     // To string method to print the transaction details properly
     @Override
     public String toString() {
         return "Transaction{" +
+                "lineNo=" + lineNo +
                 "billId='" + billId + '\'' +
                 ", itemCode='" + itemCode + '\'' +
                 ", internalPrice=" + internalPrice +
@@ -99,6 +132,8 @@ public class Transaction {
                 ", quantity=" + quantity +
                 ", lineTotal=" + lineTotal +
                 ", checksum=" + checksum +
+                ", profit=" + profit +
+                "isValid=" + isValid +
                 '}';
     }
 }

@@ -1,110 +1,163 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="600.0" prefWidth="1041.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.iit.gtds.tax_department_system.controller.TransactionTableController">
    <children>
-      <Pane prefHeight="601.0" prefWidth="1042.0">
-         <children>
-            <Button layoutX="827.0" layoutY="498.0" mnemonicParsing="false" onAction="#btnCalculateProfitOnAction" text="Calculate Profit">
+      <BorderPane prefHeight="600.0" prefWidth="1200.0">
+         <center>
+            <TableView fx:id="tblTransactions" prefHeight="436.0" prefWidth="1131.0" BorderPane.alignment="CENTER">
+              <columns>
+                  <TableColumn fx:id="colLineNo" prefWidth="75.99999463558197" text="Line No." />
+                <TableColumn fx:id="colBillId" prefWidth="86.39990997314453" text="Bill ID" />
+                <TableColumn fx:id="colItemCode" prefWidth="128.00013732910156" text="Item Code" />
+                  <TableColumn fx:id="colInternalPrice" prefWidth="132.800048828125" text="Internal Price" />
+                  <TableColumn fx:id="colDiscount" prefWidth="122.40011596679688" text="Discount" />
+                  <TableColumn fx:id="colSalesPrice" prefWidth="122.39990234375" text="Sales Price" />
+                  <TableColumn fx:id="colQuantity" prefWidth="104.0" text="Quantity" />
+                  <TableColumn fx:id="colLineTotal" prefWidth="118.39990234375" text="Line Total" />
+                  <TableColumn fx:id="colChecksum" prefWidth="99.19989013671875" text="Checksum" />
+                  <TableColumn fx:id="colValidity" prefWidth="111.1998291015625" text="Validity" />
+              </columns>
+               <BorderPane.margin>
+                  <Insets bottom="10.0" left="50.0" right="50.0" top="10.0" />
+               </BorderPane.margin>
+            </TableView>
+         </center>
+         <top>
+            <Label text="Transaction Table Validator" BorderPane.alignment="CENTER">
                <font>
-                  <Font name="Poppins Regular" size="16.0" />
+                  <Font name="Poppins Regular" size="18.0" />
                </font>
-            </Button>
-         </children>
-      </Pane>
-      <TableView fx:id="tblTransactions" layoutX="43.0" layoutY="61.0" prefHeight="342.0" prefWidth="956.0">
-        <columns>
-          <TableColumn fx:id="colBillId" prefWidth="70.40002632141113" text="Bill ID" />
-          <TableColumn fx:id="colItemCode" prefWidth="120.79998016357422" text="Item Code" />
-            <TableColumn fx:id="colInternalPrice" prefWidth="115.199951171875" text="Internal Price" />
-            <TableColumn fx:id="colDiscount" prefWidth="98.4000244140625" text="Discount" />
-            <TableColumn fx:id="colSalesPrice" prefWidth="131.99996948242188" text="Sales Price" />
-            <TableColumn fx:id="colQuantity" prefWidth="89.60003662109375" text="Quantity" />
-            <TableColumn fx:id="colLineTotal" prefWidth="111.2000732421875" text="Line Total" />
-            <TableColumn fx:id="colChecksum" prefWidth="104.800048828125" text="Checksum" />
-            <TableColumn fx:id="colEdit" prefWidth="108.800048828125" text="Action" />
-        </columns>
-      </TableView>
-      <HBox layoutX="46.0" layoutY="460.0" prefHeight="131.0" prefWidth="226.0" spacing="5.0">
-         <children>
-            <VBox prefHeight="102.0" prefWidth="143.0" spacing="15.0">
+               <BorderPane.margin>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
+               </BorderPane.margin>
+            </Label>
+         </top>
+         <bottom>
+            <Group BorderPane.alignment="CENTER">
                <children>
-                  <Label text="Valid Records" textFill="#0fbf2c">
+                  <HBox layoutX="-183.0" layoutY="467.0" prefHeight="98.0" prefWidth="226.0" spacing="5.0">
+                     <children>
+                        <VBox alignment="CENTER_LEFT" prefHeight="91.0" prefWidth="143.0" spacing="15.0">
+                           <children>
+                              <Label text="Valid Records" textFill="#0fbf2c">
+                                 <font>
+                                    <Font name="Poppins Regular" size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="10.0" layoutY="10.0" text="Invalid Records" textFill="RED">
+                                 <font>
+                                    <Font name="Poppins Regular" size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="10.0" layoutY="28.0" text="Total Records">
+                                 <font>
+                                    <Font name="Poppins Regular" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="10.0" spacing="15.0">
+                           <children>
+                              <Label text=":" textFill="#0fbf2c">
+                                 <font>
+                                    <Font name="Poppins Regular" size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="10.0" layoutY="10.0" text=":" textFill="RED">
+                                 <font>
+                                    <Font name="Poppins Regular" size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="10.0" layoutY="28.0" text=":">
+                                 <font>
+                                    <Font name="Poppins Regular" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER_LEFT" layoutX="153.0" layoutY="10.0" prefHeight="100.0" prefWidth="43.0" spacing="15.0">
+                           <children>
+                              <Label fx:id="lblValidRecords" text="00" textFill="#0fbf2c">
+                                 <font>
+                                    <Font name="Poppins Regular" size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblInvalidRecords" layoutX="10.0" layoutY="10.0" text="00" textFill="RED">
+                                 <font>
+                                    <Font name="Poppins Regular" size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblTotalRecords" layoutX="10.0" layoutY="28.0" text="00">
+                                 <font>
+                                    <Font name="Poppins Regular" size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <TextArea fx:id="txtErrors" layoutX="104.0" layoutY="468.0" prefHeight="98.0" prefWidth="482.0">
+                     <font>
+                        <Font name="Poppins Regular" size="16.0" />
+                     </font>
+                  </TextArea>
+                  <Label layoutX="104.0" layoutY="436.0" text="Validation Errors">
                      <font>
                         <Font name="Poppins Regular" size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="10.0" layoutY="10.0" text="Invalid Records" textFill="RED">
+                  <Button layoutX="687.0" layoutY="530.0" mnemonicParsing="false" onAction="#btnCalculateProfitOnAction" text="Calculate Profit">
                      <font>
                         <Font name="Poppins Regular" size="16.0" />
                      </font>
-                  </Label>
-                  <Label layoutX="10.0" layoutY="28.0" text="Total Records">
-                     <font>
-                        <Font name="Poppins Regular" size="16.0" />
-                     </font>
-                  </Label>
+                  </Button>
+                  <HBox layoutX="702.0" layoutY="459.0" prefHeight="20.0" prefWidth="127.0" spacing="10.0">
+                     <children>
+                        <Label text="Selected Line :">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="20.0" prefWidth="24.0" text="0">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="700.0" layoutY="488.0" spacing="10.0">
+                     <children>
+                        <Button mnemonicParsing="false" style="-fx-background-color: green;" text="Edit" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" style="-fx-background-color: red;" text="Delete" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
-            </VBox>
-            <VBox layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="10.0" spacing="15.0">
-               <children>
-                  <Label text=":" textFill="#0fbf2c">
-                     <font>
-                        <Font name="Poppins Regular" size="16.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="10.0" layoutY="10.0" text=":" textFill="RED">
-                     <font>
-                        <Font name="Poppins Regular" size="16.0" />
-                     </font>
-                  </Label>
-                  <Label layoutX="10.0" layoutY="28.0" text=":">
-                     <font>
-                        <Font name="Poppins Regular" size="16.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
-            <VBox layoutX="153.0" layoutY="10.0" prefHeight="100.0" prefWidth="43.0" spacing="15.0">
-               <children>
-                  <Label fx:id="lblValidRecords" text="00" textFill="#0fbf2c">
-                     <font>
-                        <Font name="Poppins Regular" size="16.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="lblInvalidRecords" layoutX="10.0" layoutY="10.0" text="00" textFill="RED">
-                     <font>
-                        <Font name="Poppins Regular" size="16.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="lblTotalRecords" layoutX="10.0" layoutY="28.0" text="00">
-                     <font>
-                        <Font name="Poppins Regular" size="16.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-      <TextArea fx:id="txtErrors" layoutX="299.0" layoutY="472.0" prefHeight="98.0" prefWidth="482.0">
-         <font>
-            <Font name="Poppins Regular" size="16.0" />
-         </font>
-      </TextArea>
-      <Label layoutX="300.0" layoutY="435.0" text="Validation Errors">
-         <font>
-            <Font name="Poppins Regular" size="16.0" />
-         </font>
-      </Label>
+               <BorderPane.margin>
+                  <Insets bottom="20.0" top="10.0" />
+               </BorderPane.margin>
+            </Group>
+         </bottom>
+      </BorderPane>
    </children>
 </AnchorPane>

@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -24,6 +25,8 @@ public class TransactionTableController implements Initializable {
 
     private final TransactionTableService service = new TransactionTableService();
     private final ObservableList<Transaction> transactions = TransactionList.getInstance().getTransactions();
+    @FXML
+    private TableColumn<Transaction, Integer> colLineNo;
     @FXML
     private TableColumn<Transaction, String> colBillId;
     @FXML
@@ -41,7 +44,7 @@ public class TransactionTableController implements Initializable {
     @FXML
     private TableColumn<Transaction, Double> colSalesPrice;
     @FXML
-    private TableColumn<Transaction, Void> colEdit;
+    private TableColumn<Transaction, String> colValidity;
     @FXML
     private Label lblInvalidRecords;
     @FXML
@@ -55,6 +58,7 @@ public class TransactionTableController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        colLineNo.setCellValueFactory(new PropertyValueFactory<>("lineNo"));
         colBillId.setCellValueFactory(new PropertyValueFactory<>("billId"));
         colItemCode.setCellValueFactory(new PropertyValueFactory<>("itemCode"));
         colInternalPrice.setCellValueFactory(new PropertyValueFactory<>("internalPrice"));
@@ -63,6 +67,7 @@ public class TransactionTableController implements Initializable {
         colQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         colLineTotal.setCellValueFactory(new PropertyValueFactory<>("lineTotal"));
         colChecksum.setCellValueFactory(new PropertyValueFactory<>("checksum"));
+        colValidity.setCellValueFactory(new PropertyValueFactory<>("isValid"));
 
         tblTransactions.setItems(transactions);
 
@@ -116,86 +121,103 @@ public class TransactionTableController implements Initializable {
             }
         });
 
-        // Apply cell-level highlighting using a reusable method
-        applyCellStyle(colItemCode, "itemCode", errorList);
-        applyCellStyle(colInternalPrice, "internalPrice", errorList);
-        applyCellStyle(colDiscount, "discount", errorList);
-        applyCellStyle(colSalesPrice, "salePrice", errorList);
-        applyCellStyle(colQuantity, "quantity", errorList);
-        applyCellStyle(colLineTotal, "lineTotal", errorList);
-        applyCellStyle(colChecksum, "checksum", errorList);
-
-        colEdit.setCellFactory(col -> new TableCell<>() {
-            private final Button editButton = new Button("Edit");
-
-            {
-                editButton.setOnAction(event -> {
-                    Transaction transaction = getTableView().getItems().get(getIndex());
-
-                    try {
-                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/iit/gtds/tax_department_system/view/edit_transaction_form.fxml"));
-                        Parent root = null;
-                        root = loader.load();
-
-                        EditTransactionFormController controller = loader.getController();
-
-                        controller.setTransactionData(transaction);
-
-                        Stage stage = new Stage();
-                        stage.setScene(new Scene(root));
-                        stage.show();
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
-            }
-
-            @Override
-            protected void updateItem(Void item, boolean empty) {
-                super.updateItem(item, empty);
-
-                if (empty || getIndex() >= getTableView().getItems().size()) {
-                    setGraphic(null);
-                    return;
-                }
-
-                Transaction row = getTableView().getItems().get(getIndex());
-
-                // Check if the current row has any error
-                boolean hasError = errorList.stream().anyMatch(e ->
-                        e[0].equals(row.getBillId()) && e[1].equals(row.getItemCode())
-                );
-
-                setGraphic(hasError ? editButton : null);
-            }
-        });
+//        // Apply cell-level highlighting using a reusable method
+//        applyCellStyle(colItemCode, "itemCode", errorList);
+//        applyCellStyle(colInternalPrice, "internalPrice", errorList);
+//        applyCellStyle(colDiscount, "discount", errorList);
+//        applyCellStyle(colSalesPrice, "salePrice", errorList);
+//        applyCellStyle(colQuantity, "quantity", errorList);
+//        applyCellStyle(colLineTotal, "lineTotal", errorList);
+//        applyCellStyle(colChecksum, "checksum", errorList);
+//
+//        colAction.setCellFactory(col -> new TableCell<>() {
+//            private final Button editButton = new Button("Edit");
+//            private final Button deleteButton = new Button("Delete");
+//            private final HBox buttonBox = new HBox(5); // spacing of 5
+//
+//            {
+//                editButton.setOnAction(event -> {
+//                    Transaction transaction = getTableView().getItems().get(getIndex());
+//
+//                    try {
+//                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/iit/gtds/tax_department_system/view/edit_transaction_form.fxml"));
+//                        Parent root = loader.load();
+//
+//                        EditTransactionFormController controller = loader.getController();
+//                        controller.setTransactionData(transaction);
+//
+//                        Stage stage = new Stage();
+//                        stage.setScene(new Scene(root));
+//                        stage.show();
+//                    } catch (IOException e) {
+//                        throw new RuntimeException(e);
+//                    }
+//                });
+//
+//                deleteButton.setOnAction(event -> {
+//                    int index = getIndex();
+//                    Transaction transaction = getTableView().getItems().get(index);
+//                    // Confirm before delete (optional)
+//                    Alert confirm = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this transaction?", ButtonType.YES, ButtonType.NO);
+//                    confirm.showAndWait().ifPresent(response -> {
+//                        if (response == ButtonType.YES) {
+//                            getTableView().getItems().remove(index);
+//                            // Delete Logic
+//                        }
+//                    });
+//                });
+//
+//                buttonBox.getChildren().addAll(editButton, deleteButton);
+//            }
+//
+//            @Override
+//            protected void updateItem(Void item, boolean empty) {
+//                super.updateItem(item, empty);
+//
+//                if (empty || getIndex() >= getTableView().getItems().size()) {
+//                    setGraphic(null);
+//                    return;
+//                }
+//
+//                Transaction row = getTableView().getItems().get(getIndex());
+//
+//                boolean hasError = errorList.stream().anyMatch(e ->
+//                        e[0].equals(row.getBillId()) && e[1].equals(row.getItemCode())
+//                );
+//
+//                // Only show edit if there's an error, but always allow delete
+//                editButton.setVisible(hasError);
+//                deleteButton.setVisible(hasError);
+//                setGraphic(buttonBox);
+//            }
+//        });
     }
 
 
-    private <T> void applyCellStyle(TableColumn<Transaction, T> column, String fieldName, List<String[]> errors) {
-        column.setCellFactory(col -> new TableCell<>() {
-            @Override
-            protected void updateItem(T value, boolean empty) {
-                super.updateItem(value, empty);
-                if (empty || value == null) {
-                    setText(null);
-                    setStyle("");
-                    return;
-                }
-
-                setText(value.toString());
-                Transaction row = getTableView().getItems().get(getIndex());
-
-                boolean match = errors.stream().anyMatch(e ->
-                        e[0].equals(row.getBillId()) &&
-                                e[1].equals(row.getItemCode()) &&
-                                e[2].equals(fieldName)
-                );
-
-                setStyle(match ? "-fx-background-color: #8B0000; -fx-text-fill: white;" : "");
-            }
-        });
-    }
+//    private <T> void applyCellStyle(TableColumn<Transaction, T> column, String fieldName, List<String[]> errors) {
+//        column.setCellFactory(col -> new TableCell<>() {
+//            @Override
+//            protected void updateItem(T value, boolean empty) {
+//                super.updateItem(value, empty);
+//                if (empty || value == null) {
+//                    setText(null);
+//                    setStyle("");
+//                    return;
+//                }
+//
+//                setText(value.toString());
+//                Transaction row = getTableView().getItems().get(getIndex());
+//
+//                boolean match = errors.stream().anyMatch(e ->
+//                        e[0].equals(row.getBillId()) &&
+//                                e[1].equals(row.getItemCode()) &&
+//                                e[2].equals(fieldName)
+//                );
+//
+//                setStyle(match ? "-fx-background-color: #8B0000; -fx-text-fill: white;" : "");
+//            }
+//        });
+//    }
 
     @FXML
     void btnCalculateProfitOnAction(ActionEvent event) {

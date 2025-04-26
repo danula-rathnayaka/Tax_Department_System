@@ -13,24 +13,31 @@ public class TransactionTableService {
         ArrayList<String[]> errorTransactionList = new ArrayList<>();
 
         for (Transaction transaction : transactions) {
+            Boolean isValid = true;
             String billId = transaction.getBillId();
             String itemCode = transaction.getItemCode();
 
             if (!isValidItemCode(itemCode)) {
                 errorTransactionList.add(new String[]{billId, itemCode, "itemCode"});
+                isValid = false;
             } else if (transaction.getInternalPrice() < 0) {
                 errorTransactionList.add(new String[]{billId, itemCode, "internalPrice"});
+                isValid = false;
             } else if (transaction.getDiscount() < 0) {
                 errorTransactionList.add(new String[]{billId, itemCode, "discount"});
+                isValid = false;
             } else if (transaction.getSalePrice() < 0) {
                 errorTransactionList.add(new String[]{billId, itemCode, "salePrice"});
+                isValid = false;
             } else if (transaction.getQuantity() < 0) {
                 errorTransactionList.add(new String[]{billId, itemCode, "quantity"});
-            } else if (transaction.getLineTotal() < 0) {
-                errorTransactionList.add(new String[]{billId, itemCode, "lineTotal"});
+                isValid = false;
             } else if (!isChecksumValid(transaction)) {
                 errorTransactionList.add(new String[]{billId, itemCode, "checksum"});
+                isValid = false;
             }
+
+            transaction.setIsValid(isValid? "Valid" : "Invalid");
         }
 
         return errorTransactionList;
