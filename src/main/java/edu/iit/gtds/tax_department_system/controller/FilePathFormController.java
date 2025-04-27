@@ -33,6 +33,9 @@ public class FilePathFormController implements Initializable {
 
     @FXML
     void chooseBtnOnAction(ActionEvent event) {
+        // Allow only csv files
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV file", "*.csv"));
+
         // Show file chooser dialog
         File file = fileChooser.showOpenDialog(new Stage());
 

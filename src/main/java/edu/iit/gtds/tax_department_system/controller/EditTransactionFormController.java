@@ -28,7 +28,7 @@ public class EditTransactionFormController {
     private TextField txtItemCode;
 
     @FXML
-    private TextField txtLineTotal;
+    private Label lblLineTotal;
 
     @FXML
     private TextField txtQuantity;
@@ -55,7 +55,6 @@ public class EditTransactionFormController {
                 txtDiscount.getText(),
                 txtSalesPrice.getText(),
                 txtQuantity.getText(),
-                txtLineTotal.getText(),
                 txtChecksum.getText()
         );
 
@@ -85,7 +84,7 @@ public class EditTransactionFormController {
         txtDiscount.setText(transaction.getDiscount().toString());
         txtSalesPrice.setText(transaction.getSalePrice().toString());
         txtQuantity.setText(transaction.getQuantity().toString());
-        txtLineTotal.setText(transaction.getLineTotal().toString());
+        lblLineTotal.setText(transaction.getLineTotal().toString());
         txtChecksum.setText(transaction.getChecksum().toString());
     }
 

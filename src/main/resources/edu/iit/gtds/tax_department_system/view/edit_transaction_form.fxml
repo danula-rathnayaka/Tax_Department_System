@@ -129,7 +129,11 @@
                               <Font name="Poppins Regular" size="16.0" />
                            </font>
                         </Label>
-                        <TextField fx:id="txtLineTotal" prefHeight="26.0" prefWidth="103.0" />
+                        <Label fx:id="lblLineTotal" text="0000">
+                           <font>
+                              <Font name="Poppins Regular" size="16.0" />
+                           </font>
+                        </Label>
                      </children>
                   </HBox>
                   <HBox layoutX="10.0" layoutY="61.0" prefHeight="20.0" prefWidth="244.0" spacing="20.0">

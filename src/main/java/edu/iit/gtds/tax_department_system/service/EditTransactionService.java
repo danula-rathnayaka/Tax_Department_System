@@ -1,6 +1,7 @@
 package edu.iit.gtds.tax_department_system.service;
 
 import edu.iit.gtds.tax_department_system.model.Transaction;
+import edu.iit.gtds.tax_department_system.util.ChecksumUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,6 @@ public class EditTransactionService {
                                           String discountStr,
                                           String salePriceStr,
                                           String quantityStr,
-                                          String lineTotalStr,
                                           String checksumStr) {
 
         List<String> errors = new ArrayList<>();
@@ -43,11 +43,6 @@ public class EditTransactionService {
             errors.add("Quantity must be a positive integer.");
         }
 
-        Double lineTotal = parsePositiveDouble(lineTotalStr);
-        if (lineTotal == null) {
-            errors.add("Line Total must be a valid non-negative number.");
-        }
-
         Integer checksum = parsePositiveInt(checksumStr);
         if (checksum == null) {
             errors.add("Checksum must be a positive integer.");
@@ -60,8 +55,9 @@ public class EditTransactionService {
             transaction.setDiscount(discount);
             transaction.setSalePrice(salePrice);
             transaction.setQuantity(quantity);
-            transaction.setLineTotal(lineTotal);
-            transaction.setChecksum(checksum);
+            transaction.setLineTotal(salePrice * quantity - discount);
+
+            transaction.setChecksum(!transaction.getChecksum().equals(checksum) ? checksum : ChecksumUtils.getChecksum(transaction));
         }
 
         return errors;
