@@ -3,6 +3,7 @@ package edu.iit.gtds.tax_department_system.controller;
 import edu.iit.gtds.tax_department_system.model.Transaction;
 import edu.iit.gtds.tax_department_system.model.TransactionList;
 import edu.iit.gtds.tax_department_system.service.TransactionTableService;
+import edu.iit.gtds.tax_department_system.util.FileHandleUtils;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -79,12 +80,14 @@ public class TransactionTableController implements Initializable {
         // Set the data to the table view
         tblTransactions.setItems(transactions);
 
-        // Listen for row selection in the table
+        // Listener for row selection in the table
         tblTransactions.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
+                // Update the label with the selected line number
                 lblLineSelected.setText(newSelection.getLineNo().toString());
                 selectedTransaction = newSelection;
             } else {
+                // If no selection, clear the label and reset selected transaction
                 lblLineSelected.setText("Null");
                 selectedTransaction = null;
             }
@@ -144,6 +147,9 @@ public class TransactionTableController implements Initializable {
 
             // Refresh table when the edit window is closed
             stage.setOnHidden(e -> {
+                selectedTransaction = null;
+                tblTransactions.getSelectionModel().clearSelection();
+                lblLineSelected.setText("Null");
                 tblTransactions.refresh();
                 updateValidationStatus();
             });
@@ -202,7 +208,7 @@ public class TransactionTableController implements Initializable {
     @FXML
     void btnUpdateFileOnAction(ActionEvent event) {
         // Persist the current list of transactions to file
-        service.updateFile();
+        FileHandleUtils.updateFile();
         new Alert(Alert.AlertType.INFORMATION, "File updated successfully.").show();
     }
 }

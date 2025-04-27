@@ -5,6 +5,7 @@ import edu.iit.gtds.tax_department_system.service.EditTransactionService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -12,33 +13,26 @@ import java.util.List;
 
 public class EditTransactionFormController {
 
+    // Service instance for the edit transaction
+    private final EditTransactionService service = new EditTransactionService();
     @FXML
     private Label lblBillNo;
-
     @FXML
     private TextField txtChecksum;
-
     @FXML
     private TextField txtDiscount;
-
     @FXML
     private TextField txtInternalPrice;
-
     @FXML
     private TextField txtItemCode;
-
     @FXML
     private Label lblLineTotal;
-
     @FXML
     private TextField txtQuantity;
-
     @FXML
     private TextField txtSalesPrice;
-
+    // Transaction to be edited
     private Transaction transaction;
-
-    private final EditTransactionService service = new EditTransactionService();
 
     @FXML
     void btnCancelOnAction(ActionEvent event) {
@@ -48,6 +42,7 @@ public class EditTransactionFormController {
 
     @FXML
     void btnSaveOnAction(ActionEvent event) {
+        // Validate and update the transaction with the user provided data
         List<String> errors = service.validateAndUpdate(
                 transaction,
                 txtItemCode.getText(),
@@ -58,26 +53,23 @@ public class EditTransactionFormController {
                 txtChecksum.getText()
         );
 
+        // If there are validation errors, display them in an alert
         if (!errors.isEmpty()) {
-            showAlert(String.join("\n", errors));
+            Alert alert = new Alert(Alert.AlertType.ERROR, String.join("\n", errors));
+            alert.setTitle("Validation Errors");
+            alert.setHeaderText("Please correct the following:");
+            alert.showAndWait();
             return;
         }
 
+        // Close the edit window after successful update if no errors
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
 
-    private void showAlert(String message) {
-        javafx.scene.control.Alert alert = new javafx.scene.control.Alert(javafx.scene.control.Alert.AlertType.ERROR);
-        alert.setTitle("Validation Errors");
-        alert.setHeaderText("Please correct the following:");
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-
-
     public void setTransactionData(Transaction transaction) {
         this.transaction = transaction;
+
+        // Set the form fields with the transaction's existing data
         lblBillNo.setText(transaction.getBillId());
         txtItemCode.setText(transaction.getItemCode());
         txtInternalPrice.setText(transaction.getInternalPrice().toString());
