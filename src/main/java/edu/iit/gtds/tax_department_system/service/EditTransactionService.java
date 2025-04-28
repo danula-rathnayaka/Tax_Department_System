@@ -74,7 +74,7 @@ public class EditTransactionService {
     private Double parsePositiveDouble(String value) {
         try {
             double num = Double.parseDouble(value);
-            return num >= 0 ? num : null;  // Return null if negative
+            return num > 0 ? num : null;  // Return null if negative
         } catch (NumberFormatException e) {
             return null;  // Return null if not a valid number
         }
