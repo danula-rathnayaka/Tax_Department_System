@@ -19,7 +19,10 @@
          </font>
       </Label>
       <TextField fx:id="txtPathForFile" layoutX="37.0" layoutY="257.0" prefHeight="26.0" prefWidth="453.0" />
-      <Button layoutX="507.0" layoutY="257.0" mnemonicParsing="false" onAction="#chooseBtnOnAction" text="Choose" />
-      <Button layoutX="262.0" layoutY="325.0" minWidth="75.0" mnemonicParsing="false" onAction="#goBtnOnAction" text="Go" />
+      <Button layoutX="507.0" layoutY="257.0" mnemonicParsing="false" onAction="#chooseBtnOnAction" style="-fx-background-color: #D8BFD8;" text="Choose" />
+      <Button layoutX="262.0" layoutY="325.0" minWidth="75.0" mnemonicParsing="false" onAction="#goBtnOnAction" style="-fx-background-color: #720e9e;" text="Go" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
    </children>
 </AnchorPane>

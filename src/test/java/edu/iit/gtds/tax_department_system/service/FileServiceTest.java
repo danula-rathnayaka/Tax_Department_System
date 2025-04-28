@@ -22,6 +22,7 @@ class FileServiceTest {
         // Create a temporary csv file writing dummy data
         File tempFile = File.createTempFile("test_transactions", ".csv");
         FileWriter writer = new FileWriter(tempFile);
+        writer.write( "bill_id,item_code,internal_price,discount,sale_price,quantity,line_total,checksum\n");
         writer.write("1000,Lemon_01,20,10,18,2,36,98\n");
         writer.write("1001,Cake124,15.5,5,14.5,3,43.5,201\n");
         writer.close();

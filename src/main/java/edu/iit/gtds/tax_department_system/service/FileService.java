@@ -18,6 +18,10 @@ public class FileService {
 
             Integer lineNumber = 0;
 
+            if (scanner.hasNextLine()) {
+                scanner.nextLine(); // Skip header line
+            }
+
             // Loop until a next line is found
             while (scanner.hasNextLine()) {
 

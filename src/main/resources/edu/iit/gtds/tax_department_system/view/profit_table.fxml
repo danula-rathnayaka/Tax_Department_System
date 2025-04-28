@@ -39,7 +39,7 @@
          <top>
             <Label text="Transaction Table Validator" BorderPane.alignment="CENTER">
                <font>
-                  <Font name="Poppins Regular" size="18.0" />
+                  <Font size="18.0" />
                </font>
                <BorderPane.margin>
                   <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
@@ -138,17 +138,17 @@
                   </Button>
                   <Label layoutX="910.0" layoutY="12.0" text="Final tax amount">
                      <font>
-                        <Font name="Poppins Regular" size="16.0" />
+                        <Font size="16.0" />
                      </font>
                   </Label>
                   <Label layoutX="911.0" layoutY="43.0" text="Rs. ">
                      <font>
-                        <Font name="Poppins Regular" size="18.0" />
+                        <Font size="16.0" />
                      </font>
                   </Label>
                   <Label fx:id="lblFinalTax" layoutX="943.0" layoutY="43.0" prefHeight="27.0" prefWidth="103.0" text="00.00">
                      <font>
-                        <Font name="Poppins Regular" size="18.0" />
+                        <Font size="16.0" />
                      </font>
                   </Label>
                   <TextField fx:id="txtTaxRate" layoutX="699.0" layoutY="44.0" prefHeight="25.0" prefWidth="113.0" />
@@ -159,25 +159,25 @@
                   </Label>
                   <Label layoutX="697.0" layoutY="12.0" text="Enter the tax rate :">
                      <font>
-                        <Font name="Poppins Regular" size="16.0" />
+                        <Font size="16.0" />
                      </font>
                   </Label>
-                  <Button layoutX="699.0" layoutY="81.0" mnemonicParsing="false" onAction="#btnCalculateOnAction" prefHeight="30.0" prefWidth="92.0" text="Calculate">
+                  <Button layoutX="699.0" layoutY="81.0" mnemonicParsing="false" onAction="#btnCalculateOnAction" prefHeight="30.0" prefWidth="92.0" style="-fx-background-color: #720e9e;" text="Calculate" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
                   <Label layoutX="820.0" layoutY="44.0" text="\%">
                      <font>
-                        <Font name="Poppins Regular" size="16.0" />
+                        <Font size="16.0" />
                      </font>
                   </Label>
                   <Label fx:id="lblLineSelected" layoutX="586.0" layoutY="12.0" prefHeight="23.0" prefWidth="46.0" text="None">
                      <font>
-                        <Font name="Poppins Regular" size="16.0" />
+                        <Font size="16.0" />
                      </font>
                   </Label>
-                  <Button layoutX="476.0" layoutY="82.0" mnemonicParsing="false" onAction="#btnUpdateFileOnAction" prefHeight="30.0" prefWidth="92.0" text="Update File">
+                  <Button layoutX="476.0" layoutY="82.0" mnemonicParsing="false" onAction="#btnUpdateFileOnAction" prefHeight="30.0" prefWidth="92.0" style="-fx-background-color: #D8BFD8;" text="Update File">
                      <font>
                         <Font size="14.0" />
                      </font>

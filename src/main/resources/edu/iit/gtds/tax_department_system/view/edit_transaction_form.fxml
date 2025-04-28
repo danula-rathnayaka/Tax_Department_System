@@ -10,9 +10,9 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.iit.gtds.tax_department_system.controller.EditTransactionFormController">
    <children>
-      <Label layoutX="204.0" layoutY="30.0" text="Edit Transaction">
+      <Label layoutX="216.0" layoutY="30.0" text="Edit Transaction">
          <font>
-            <Font name="Poppins Regular" size="24.0" />
+            <Font size="24.0" />
          </font>
       </Label>
       <HBox layoutX="39.0" layoutY="112.0" prefHeight="176.0" prefWidth="522.0" spacing="40.0">
@@ -157,8 +157,14 @@
       </HBox>
       <HBox layoutX="175.0" layoutY="333.0" prefHeight="26.0" prefWidth="250.0" spacing="50.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#btnSaveOnAction" prefWidth="100.0" text="Save" />
-            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnCancelOnAction" prefWidth="100.0" text="Cancel" />
+            <Button mnemonicParsing="false" onAction="#btnSaveOnAction" prefWidth="100.0" style="-fx-background-color: #720e9e;" text="Save" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnCancelOnAction" prefWidth="100.0" style="-fx-background-color: #D8BFD8;" text="Cancel">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
          </children>
       </HBox>
    </children>

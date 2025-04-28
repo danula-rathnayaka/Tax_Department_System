@@ -38,7 +38,7 @@
          <top>
             <Label text="Transaction Table Validator" BorderPane.alignment="CENTER">
                <font>
-                  <Font name="Poppins Regular" size="18.0" />
+                  <Font size="18.0" />
                </font>
                <BorderPane.margin>
                   <Insets bottom="10.0" left="20.0" right="20.0" top="20.0" />
@@ -54,17 +54,17 @@
                            <children>
                               <Label text="Valid Records" textFill="#0fbf2c">
                                  <font>
-                                    <Font name="Poppins Regular" size="16.0" />
+                                    <Font size="16.0" />
                                  </font>
                               </Label>
                               <Label layoutX="10.0" layoutY="10.0" text="Invalid Records" textFill="RED">
                                  <font>
-                                    <Font name="Poppins Regular" size="16.0" />
+                                    <Font size="16.0" />
                                  </font>
                               </Label>
                               <Label layoutX="10.0" layoutY="28.0" text="Total Records">
                                  <font>
-                                    <Font name="Poppins Regular" size="16.0" />
+                                    <Font size="16.0" />
                                  </font>
                               </Label>
                            </children>
@@ -73,17 +73,17 @@
                            <children>
                               <Label text=":" textFill="#0fbf2c">
                                  <font>
-                                    <Font name="Poppins Regular" size="16.0" />
+                                    <Font size="16.0" />
                                  </font>
                               </Label>
                               <Label layoutX="10.0" layoutY="10.0" text=":" textFill="RED">
                                  <font>
-                                    <Font name="Poppins Regular" size="16.0" />
+                                    <Font size="16.0" />
                                  </font>
                               </Label>
                               <Label layoutX="10.0" layoutY="28.0" text=":">
                                  <font>
-                                    <Font name="Poppins Regular" size="16.0" />
+                                    <Font size="16.0" />
                                  </font>
                               </Label>
                            </children>
@@ -92,17 +92,17 @@
                            <children>
                               <Label fx:id="lblValidRecords" text="00" textFill="#0fbf2c">
                                  <font>
-                                    <Font name="Poppins Regular" size="16.0" />
+                                    <Font size="16.0" />
                                  </font>
                               </Label>
                               <Label fx:id="lblInvalidRecords" layoutX="10.0" layoutY="10.0" text="00" textFill="RED">
                                  <font>
-                                    <Font name="Poppins Regular" size="16.0" />
+                                    <Font size="16.0" />
                                  </font>
                               </Label>
                               <Label fx:id="lblTotalRecords" layoutX="10.0" layoutY="28.0" text="00">
                                  <font>
-                                    <Font name="Poppins Regular" size="16.0" />
+                                    <Font size="16.0" />
                                  </font>
                               </Label>
                            </children>
@@ -111,29 +111,29 @@
                   </HBox>
                   <TextArea fx:id="txtErrors" layoutX="104.0" layoutY="468.0" prefHeight="98.0" prefWidth="300.0">
                      <font>
-                        <Font name="Poppins Regular" size="16.0" />
+                        <Font size="16.0" />
                      </font>
                   </TextArea>
                   <Label layoutX="104.0" layoutY="436.0" text="Validation Errors">
                      <font>
-                        <Font name="Poppins Regular" size="16.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
-                  <Button layoutX="684.0" layoutY="487.0" mnemonicParsing="false" onAction="#btnCalculateProfitOnAction" prefWidth="150.0" text="Calculate Profit">
+                  <Button layoutX="684.0" layoutY="487.0" mnemonicParsing="false" onAction="#btnCalculateProfitOnAction" prefWidth="150.0" style="-fx-background-color: #720e9e;" text="Calculate Profit" textFill="WHITE">
                      <font>
-                        <Font name="Poppins Regular" size="16.0" />
+                        <Font size="18.0" />
                      </font>
                   </Button>
                   <HBox layoutX="476.0" layoutY="459.0" prefHeight="20.0" prefWidth="153.0" spacing="5.0">
                      <children>
                         <Label prefHeight="20.0" prefWidth="110.0" text="Selected Line :">
                            <font>
-                              <Font name="Poppins Regular" size="14.0" />
+                              <Font size="16.0" />
                            </font>
                         </Label>
                         <Label fx:id="lblLineSelected" prefHeight="20.0" prefWidth="39.0" text="None">
                            <font>
-                              <Font name="Poppins Regular" size="14.0" />
+                              <Font size="16.0" />
                            </font>
                         </Label>
                      </children>
@@ -142,19 +142,19 @@
                      <children>
                         <Button mnemonicParsing="false" onAction="#btnEditOnAction" prefWidth="75.0" style="-fx-background-color: green;" text="Edit" textFill="WHITE">
                            <font>
-                              <Font size="14.0" />
+                              <Font size="16.0" />
                            </font>
                         </Button>
                         <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnDeleteOnAction" prefWidth="75.0" style="-fx-background-color: red;" text="Delete" textFill="WHITE">
                            <font>
-                              <Font size="14.0" />
+                              <Font size="16.0" />
                            </font>
                         </Button>
                      </children>
                   </HBox>
-                  <Button layoutX="478.0" layoutY="526.0" mnemonicParsing="false" onAction="#btnUpdateFileOnAction" prefHeight="30.0" prefWidth="152.0" text="Update File">
+                  <Button layoutX="478.0" layoutY="530.0" mnemonicParsing="false" onAction="#btnUpdateFileOnAction" prefHeight="30.0" prefWidth="152.0" style="-fx-background-color: #D8BFD8;" text="Update File">
                      <font>
-                        <Font name="Poppins Regular" size="14.0" />
+                        <Font size="16.0" />
                      </font>
                   </Button>
                </children>
