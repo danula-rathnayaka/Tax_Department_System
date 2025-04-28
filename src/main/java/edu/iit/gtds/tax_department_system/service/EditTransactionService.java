@@ -34,7 +34,7 @@ public class EditTransactionService {
         // Parse and validate the discount (must be between a positive double)
         Double discount = parsePositiveDouble(discountStr);
         if (discount == null) {
-            errors.add("Discount must be a number between 0 and 100.");
+            errors.add("Discount must be a valid non-negative number.");
         }
 
         // Parse and validate the sale price (must be a positive number)
@@ -62,7 +62,7 @@ public class EditTransactionService {
             transaction.setDiscount(discount);
             transaction.setSalePrice(salePrice);
             transaction.setQuantity(quantity);
-            transaction.setLineTotal(salePrice * quantity - discount);
+            transaction.setLineTotal((salePrice - discount) * quantity);
 
             // Update checksum only if it is different
             transaction.setChecksum(!transaction.getChecksum().equals(checksum) ? checksum : ChecksumUtils.getChecksum(transaction));

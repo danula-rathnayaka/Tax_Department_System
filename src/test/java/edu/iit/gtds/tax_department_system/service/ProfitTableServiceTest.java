@@ -66,7 +66,7 @@ class ProfitTableServiceTest {
         Map<String, Double> result = service.calculateProfitLoss();
 
         // Assert the total profit and total loss values
-        assertEquals(330.0, result.get("TotalProfit"));
+        assertEquals(125.0, result.get("TotalProfit"));
         assertEquals(0.0, result.get("TotalLoss"));
     }
 
@@ -106,6 +106,6 @@ class ProfitTableServiceTest {
 
         // Expected total profit should be 0 and total loss should be the absolute value of the loss
         assertEquals(0.0, result.get("TotalProfit"));
-        assertEquals(35.0, result.get("TotalLoss"));
+        assertEquals(75.0, result.get("TotalLoss"));
     }
 }

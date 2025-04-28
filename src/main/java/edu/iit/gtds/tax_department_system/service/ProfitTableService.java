@@ -33,7 +33,7 @@ public class ProfitTableService {
         for (Transaction transaction : TransactionList.getInstance().getTransactions()) {
 
             // Calculate the profit for the transaction
-            double profit = (transaction.getSalePrice() * transaction.getQuantity() - transaction.getDiscount()) - (transaction.getInternalPrice() * transaction.getQuantity());
+            double profit = ((transaction.getSalePrice() - transaction.getDiscount()) * transaction.getQuantity()) - (transaction.getInternalPrice() * transaction.getQuantity());
             transaction.setProfit(profit);
 
             // If profit is positive or zero, add to totalProfit

@@ -45,7 +45,7 @@ class EditTransactionServiceTest {
         assertEquals(Double.valueOf(discountStr), transaction.getDiscount());
         assertEquals(Double.valueOf(salePriceStr), transaction.getSalePrice());
         assertEquals(Integer.valueOf(quantityStr), transaction.getQuantity());
-        assertEquals(Double.parseDouble(salePriceStr) * Integer.parseInt(quantityStr) - Double.parseDouble(discountStr), transaction.getLineTotal());
+        assertEquals((Double.parseDouble(salePriceStr) - Double.parseDouble(discountStr)) * Integer.parseInt(quantityStr), transaction.getLineTotal());
     }
 
 
@@ -97,7 +97,7 @@ class EditTransactionServiceTest {
         List<String> errors = service.validateAndUpdate(transaction, itemCode, internalPriceStr, discountStr, salePriceStr, quantityStr, checksumStr);
 
         // Check that the validation error for discount appears
-        assertTrue(errors.contains("Discount must be a number between 0 and 100."));
+        assertTrue(errors.contains("Discount must be a valid non-negative number."));
     }
 
     // Test case for invalid sale price (should be a non-negative number)
